@@ -1,126 +1,61 @@
-# Program 5: Undirected Graph with BFS and DFS Traversal
+# Graph BFS DFS - prog_5
 
-This program implements an undirected graph using adjacency matrix representation and provides two traversal methods - Breadth First Search (BFS) and Depth First Search (DFS).
+undirected graph using adjacency matrix, with bfs and dfs traversal.
 
----
-
-## Data Structures Used
-
-### Adjacency Matrix
+## data structures
 
 ```c
-int adj[MAX][MAX];
-int n; // number of vertices
+int adj[MAX][MAX];  // adjacency matrix
+int visited[MAX];   // track visited nodes
+int n;              // vertex count
 ```
 
-The adjacency matrix is a 2D array where `adj[i][j] = 1` means there's an edge between vertex i and vertex j. For an undirected graph, the matrix is symmetric - if `adj[i][j] = 1`, then `adj[j][i] = 1` too.
+adj[i][j] = 1 means theres edge between i and j. for undirected graph, matrix is symmetric.
 
-Example for a triangle graph (0-1-2):
-```
-  0 1 2
-0 0 1 1
-1 1 0 1
-2 1 1 0
-```
+visited array prevents infinite loops in cyclic graphs.
 
-### Visited Array
+## functions
 
+**initGraph** - sets all matrix entries to 0
+
+**addEdge(u,v)** - sets adj[u][v] and adj[v][u] to 1 (undirected so both ways)
+
+**resetVisited** - zeros out visited array, need this before each traversal
+
+**displayMatrix** - prints the matrix with headers
+
+**DFS(vertex)** - depth first, recursive:
 ```c
-int visited[MAX];
+mark visited
+print vertex
+for each adjacent unvisited vertex:
+    DFS(that vertex)
 ```
+goes deep into one path before backtracking
 
-Keeps track of which vertices we've already visited during traversal. 0 means not visited, 1 means visited. This prevents infinite loops in graphs with cycles.
-
-### Queue (for BFS)
-
-Inside BFS function, I used an array-based queue:
+**BFS(start)** - breadth first, uses queue:
 ```c
-int queue[MAX];
-int front = 0, rear = 0;
+mark start visited, enqueue
+while queue not empty:
+    dequeue vertex, print it
+    enqueue all unvisited neighbors (mark them visited)
 ```
+visits level by level
 
-BFS needs a queue to process vertices level by level.
+## main
 
----
+takes vertices, edges from user, builds graph, then runs both traversals from user specified start vertex.
 
-## Functions
+## sample
 
-### `initGraph()`
-
-Sets all entries in adjacency matrix to 0. Called once at the start to make sure we begin with a clean slate.
-
-### `addEdge(int u, int v)`
-
-Adds an edge between vertices u and v. Since the graph is undirected, we set both `adj[u][v]` and `adj[v][u]` to 1.
-
-### `resetVisited()`
-
-Resets the visited array to all zeros. Need to call this before each traversal so both BFS and DFS can work properly.
-
-### `displayMatrix()`
-
-Prints the adjacency matrix in a readable format with row and column headers. Helpful to visualize the graph structure.
-
-### `DFS(int vertex)`
-
-Depth First Search - goes as deep as possible before backtracking.
-
-How it works:
-1. Mark current vertex as visited
-2. Print it
-3. Look at all adjacent vertices (check the row in adjacency matrix)
-4. For each unvisited adjacent vertex, recursively call DFS
-
-The recursion naturally handles the backtracking. It's like exploring a maze by always taking the first available path, and only going back when you hit a dead end.
-
-### `BFS(int start)`
-
-Breadth First Search - visits all neighbors first before going deeper.
-
-How it works:
-1. Mark starting vertex as visited and add to queue
-2. While queue is not empty:
-   - Remove front vertex from queue and print it
-   - Find all unvisited adjacent vertices
-   - Mark them visited and add to queue
-
-BFS explores the graph level by level - first all vertices at distance 1, then distance 2, and so on.
-
----
-
-## How main() Works
-
-1. Takes number of vertices from user
-2. Initializes the adjacency matrix with zeros
-3. Takes number of edges
-4. For each edge, reads two vertices and calls addEdge()
-5. Displays the adjacency matrix
-6. Asks for starting vertex for traversal
-7. Performs DFS from that vertex and shows the order
-8. Resets visited array
-9. Performs BFS from same vertex and shows the order
-
----
-
-## Example Graph Used
-
+graph used:
 ```
-    0 --- 1
-    |     |
-    |     |
-    3 --- 2
-     \   /
-      \ /
-       4
+0---1
+|   |
+3---2
+ \ /
+  4
 ```
-
-Vertices: 0, 1, 2, 3, 4
-
-Edges: 0-1, 0-3, 1-2, 2-3, 2-4, 3-4
-
----
-
-## Sample Output
 
 ```
 Enter number of vertices: 5
@@ -147,41 +82,7 @@ DFS Traversal: 0 1 2 3 4
 BFS Traversal: 0 1 3 2 4 
 ```
 
-Notice how DFS and BFS give different orders:
-- **DFS** goes deep: 0 → 1 → 2 → 3 → 4 (goes all the way down one path)
-- **BFS** goes wide: 0 → 1,3 → 2 → 4 (visits all neighbors before going deeper)
+dfs went 0->1->2->3->4 (followed first neighbor each time)
+bfs went 0->(1,3)->(2)->4 (all neighbors first, then their neighbors)
 
----
-
-## Another Example
-
-```
-Enter number of vertices: 4
-Enter number of edges: 4
-Enter edges (u v):
-0 1
-0 2
-1 3
-2 3
-
-Adjacency Matrix:
-  0 1 2 3 
-0 0 1 1 0 
-1 1 0 0 1 
-2 1 0 0 1 
-3 0 1 1 0 
-
-Enter starting vertex for traversal: 0
-
-DFS Traversal: 0 1 3 2 
-BFS Traversal: 0 1 2 3 
-```
-
----
-
-## Notes
-
-- Adjacency matrix uses O(V²) space where V is number of vertices
-- Good for dense graphs where most vertices are connected
-- Checking if edge exists is O(1) - just look up adj[i][j]
-- For sparse graphs, adjacency list would be more memory efficient
+adj matrix is O(V^2) space, not great for sparse graphs but checking edge existence is O(1)
