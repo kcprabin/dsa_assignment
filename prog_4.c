@@ -1,6 +1,8 @@
+// doubly linked list - insert after & delete
 #include <stdio.h>
 #include <stdlib.h>
 
+// has both prev and next pointers
 struct Node {
     int data;
     struct Node *prev;
@@ -30,9 +32,11 @@ void insertAtBeginning(int value) {
     head = newNode;
 }
 
+// insert new node after the node containing target value
 void insertAfterNode(int target, int value) {
     struct Node *temp = head;
     
+    // find the target node first
     while (temp != NULL && temp->data != target) {
         temp = temp->next;
     }

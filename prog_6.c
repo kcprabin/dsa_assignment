@@ -1,3 +1,4 @@
+// min and max heap builder
 #include <stdio.h>
 
 #define MAX 100
@@ -79,12 +80,14 @@ void maxHeapifyDown(int arr[], int n, int index) {
     }
 }
 
+// bottom up approach - start from last non-leaf
 void buildMinHeap(int arr[], int n) {
     for (int i = 0; i < n; i++) {
         minHeap[i] = arr[i];
     }
     minSize = n;
     
+    // nodes from n/2 onwards are leaves, skip em
     for (int i = (n / 2) - 1; i >= 0; i--) {
         minHeapifyDown(minHeap, n, i);
     }

@@ -1,3 +1,5 @@
+// linked list reverse traversal
+// two methods: recursion and stack
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -40,6 +42,7 @@ void displayForward() {
     printf("\n");
 }
 
+// recursion trick - go to end first, print on way back
 void reverseTraversal(struct Node *node) {
     if (node == NULL)
         return;

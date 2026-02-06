@@ -1,8 +1,10 @@
+// bracket balancing checker
 #include <stdio.h>
 #include <string.h>
 
 #define MAX 100
 
+// using global stack - easier this way
 char stack[MAX];
 int top = -1;
 
@@ -22,9 +24,11 @@ int isMatching(char open, char close) {
     return 0;
 }
 
+// main logic - go thru each char
 int isBalanced(char exp[]) {
     for (int i = 0; i < strlen(exp); i++) {
         char ch = exp[i];
+        // opening bracket - push it
         if (ch == '(' || ch == '{' || ch == '[') {
             push(ch);
         }

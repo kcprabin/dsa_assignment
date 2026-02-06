@@ -1,11 +1,12 @@
+// undirected graph with bfs and dfs
 #include <stdio.h>
 #include <stdlib.h>
 
 #define MAX 20
 
-int adj[MAX][MAX];
-int visited[MAX];
-int n; // number of vertices
+int adj[MAX][MAX];  // adjacency matrix
+int visited[MAX];   // to avoid revisiting nodes
+int n;              // vertex count
 
 void initGraph() {
     for (int i = 0; i < n; i++) {
@@ -43,17 +44,19 @@ void displayMatrix() {
     }
 }
 
+// depth first - go deep then backtrack
 void DFS(int vertex) {
     visited[vertex] = 1;
     printf("%d ", vertex);
     
     for (int i = 0; i < n; i++) {
         if (adj[vertex][i] == 1 && visited[i] == 0) {
-            DFS(i);
+            DFS(i);  // recurse into neighbor
         }
     }
 }
 
+// breadth first - visit neighbors before going deeper
 void BFS(int start) {
     int queue[MAX];
     int front = 0, rear = 0;

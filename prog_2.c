@@ -1,3 +1,5 @@
+// infix to postfix converter + evaluator
+// only works with single digits tho
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -24,13 +26,14 @@ int isEmpty() {
     return top == -1;
 }
 
+// higher number = higher priority
 int precedence(char op) {
     if (op == '+' || op == '-')
         return 1;
     if (op == '*' || op == '/')
         return 2;
     if (op == '^')
-        return 3;
+        return 3;  // power is highest
     return 0;
 }
 
