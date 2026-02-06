@@ -1,97 +1,47 @@
-# Program 2: Infix to Postfix Conversion and Evaluation
+# Infix to Postfix - prog_2
 
-This program takes a mathematical expression in infix notation (the normal way we write, like `3+4*2`), converts it to postfix notation (also called Reverse Polish Notation), and then evaluates it to get the final answer.
+converts normal math expressions (infix) to postfix and calculates the answer.
 
----
+quick eg: `3+4*2` becomes `342*+` = 11
 
-## Data Structures Used
+## data structures
 
-### Character Stack
-
-For the infix to postfix conversion, I used a character stack:
+two stacks here:
+1. char stack - for operators during conversion
+2. int stack (inside eval function) - for numbers while calculating
 
 ```c
 char stack[MAX];
 int top = -1;
 ```
 
-This stack temporarily holds operators and parentheses while we rearrange the expression.
+## functions breakdown
 
-### Integer Stack (inside evaluatePostfix)
+**push, pop, peek, isEmpty** - usual stack operations
 
-For evaluation, I used a separate integer stack declared locally:
+**precedence** - returns priority of operator. ^ is highest (3), then */  (2), then +- (1). needed to decide which op goes first.
 
-```c
-int numStack[MAX];
-int numTop = -1;
-```
+**isOperator** - checks if char is +,-,*,/,^
 
-This one holds the operands (numbers) while we compute the result step by step.
+**infixToPostfix** - the conversion logic:
+- digit? add to output directly
+- opening bracket? push to stack
+- closing bracket? pop everything till you find opening bracket
+- operator? pop higher/equal precedence ops first, then push current one
+- finally empty the stack to output
 
----
+**evaluatePostfix** - reads postfix left to right:
+- number? push to stack
+- operator? pop 2 numbers, do the math, push result back
+- last number on stack is answer
 
-## Functions
+## main
 
-### `push(char ch)` and `pop()`
+reads expression -> converts -> evaluates -> prints
 
-Standard stack operations. Push adds to top, pop removes from top.
+**limitation**: only works with single digit numbers (0-9). didnt implement multi digit parsing.
 
-### `peek()`
-
-Returns the top element without removing it. Useful when we need to check what's on top before deciding what to do.
-
-### `isEmpty()`
-
-Returns 1 if stack is empty (top == -1), otherwise 0.
-
-### `precedence(char op)`
-
-Returns a number based on operator priority:
-- `+` and `-` return 1 (lowest)
-- `*` and `/` return 2
-- `^` returns 3 (highest)
-
-This helps decide which operator should come first in the postfix output.
-
-### `isOperator(char ch)`
-
-Simple check - returns 1 if the character is one of `+`, `-`, `*`, `/`, `^`.
-
-### `infixToPostfix(char infix[], char postfix[])`
-
-This is where the conversion happens. The algorithm goes like this:
-- If we see a digit, directly add it to postfix output
-- If we see `(`, push it to stack
-- If we see `)`, keep popping and adding to output until we find the matching `(`
-- If we see an operator, pop all operators with higher or equal precedence first, then push the current one
-- At the end, pop everything remaining from stack to output
-
-### `evaluatePostfix(char postfix[])`
-
-Evaluates the postfix expression:
-- If we see a digit, push it to the number stack
-- If we see an operator, pop two numbers, apply the operator, push the result back
-- The final answer is whatever's left on the stack
-
-For power (`^`), I used a simple loop since we're only dealing with integers.
-
----
-
-## How main() Works
-
-1. Declares two character arrays - one for infix input, one for postfix output
-2. Asks user to enter an infix expression
-3. Reads it using `scanf`
-4. Calls `infixToPostfix()` to convert
-5. Prints the postfix expression
-6. Calls `evaluatePostfix()` to compute the result
-7. Prints the final answer
-
-**Note:** This program works with single digit numbers only (0-9). For multi-digit support, we'd need to handle spacing or more complex parsing.
-
----
-
-## Sample Output
+## sample runs
 
 ```
 Enter infix expression (single digit numbers only): 3+4*2
@@ -111,8 +61,4 @@ Postfix expression: 23^1+
 Result: 9
 ```
 
-```
-Enter infix expression (single digit numbers only): ((4+2)*3)/(7-1)
-Postfix expression: 42+3*71-/
-Result: 3
-```
+why 342*+ = 11? coz 4*2=8 first (higher precedence), then 3+8=11
