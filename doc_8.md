@@ -70,14 +70,7 @@ Display performance statistics:
 END
 ```
 
-## 💡 Key Features
 
-1. **Dynamic Memory Allocation**: Uses `malloc()` to allocate memory based on user input
-2. **Performance Tracking**: Global counters track comparisons and swaps in real-time
-3. **User-Friendly Interface**: Clean, formatted output with box-drawing characters
-4. **Smart Display**: Shows first and last 50 elements for large arrays (>100 elements)
-5. **Memory Management**: Properly frees allocated memory before program termination
-6. **Input Validation**: Checks for positive number input
 
 ## 🔍 Performance Metrics
 
@@ -236,15 +229,7 @@ gcc prog_8.c -o prog_8
 - All algorithms are implemented with in-place sorting except merge sort
 - Performance metrics help understand practical algorithm efficiency
 
-## 📚 References
-
-- Cormen, T. H., et al. "Introduction to Algorithms" (CLRS)
-- Sedgewick, R. "Algorithms in C"
-- Knuth, D. E. "The Art of Computer Programming, Vol. 3: Sorting and Searching"
-
----
-
-**Author**: DSA Assignment  
+**Author**: kcprabin 
 **Program**: prog_8.c  
 **Documentation**: doc_8.md  
 **Date**: February 2026
