@@ -1,4 +1,4 @@
-// min and max heap builder
+
 #include <stdio.h>
 
 #define MAX 100
@@ -144,14 +144,14 @@ int main() {
     printf("\nOriginal array: ");
     printArray(arr, n);
     
-    printf("\n========== MIN HEAP ==========\n");
+    printf("MIN HEAP\n");
     buildMinHeap(arr, n);
     printf("Min Heap array: ");
     printArray(minHeap, minSize);
     printf("Root (minimum): %d\n", minHeap[0]);
     printHeapTree(minHeap, minSize, "Min");
     
-    printf("\n========== MAX HEAP ==========\n");
+    printf("MAX HEAP\n");
     buildMaxHeap(arr, n);
     printf("Max Heap array: ");
     printArray(maxHeap, maxSize);
