@@ -98,7 +98,7 @@ void displayForward() {
 
 void displayBackward() {
     if (head == NULL) {
-        printf("Backward: (empty)\n");
+        printf("Backward:\n");
         return;
     }
     
@@ -134,7 +134,7 @@ int main() {
     displayForward();
     displayBackward();
     
-    printf("\n--- Insert After Node Demo ---\n");
+    printf("\ Insert After Node Demon");
     insertAfterNode(20, 25);
     displayForward();
     
@@ -146,7 +146,7 @@ int main() {
     
     insertAfterNode(100, 50);
     
-    printf("\n--- Delete Node Demo ---\n");
+    printf("\nDelete Node Demo ");
     printf("\nCurrent list:\n");
     displayForward();
     
@@ -161,7 +161,7 @@ int main() {
     
     deleteNode(100);
     
-    printf("\nFinal list:\n");
+    printf("\nFinal list:");
     displayForward();
     displayBackward();
     
