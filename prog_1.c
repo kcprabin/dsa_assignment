@@ -1,4 +1,4 @@
-// bracket balancing checker
+
 #include <stdio.h>
 #include <string.h>
 

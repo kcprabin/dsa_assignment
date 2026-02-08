@@ -1,5 +1,4 @@
-// linked list reverse traversal
-// two methods: recursion and stack
+
 #include <stdio.h>
 #include <stdlib.h>
 

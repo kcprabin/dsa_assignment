@@ -1,5 +1,4 @@
-// infix to postfix converter + evaluator
-// only works with single digits tho
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -111,7 +110,7 @@ int evaluatePostfix(char postfix[]) {
 int main() {
     char infix[MAX], postfix[MAX];
 
-    printf("Enter infix expression (single digit numbers only): ");
+    printf("Enter infix expression : ");
     scanf("%s", infix);
 
     infixToPostfix(infix, postfix);
